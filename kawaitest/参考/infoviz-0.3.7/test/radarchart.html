@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="author" content="@zhengli" />
+		<link rel="shortcut icon" href="../images/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="../css/demo.css" />
+		<title>RadarChart Test - InfoViz</title>
+		<!--[if lt IE 9]>
+			<script src="../js/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body class="p-demo p-test">
+		<header><h1><a href="http://infoviz.org"></a></h1></header>
+		<section class="container">
+			<ul class="menu clearfix">
+				<li><a href="../index.html" title="Controls">Controls</a></li>
+				<li><a href="http://my.infoviz.org" title="Creator">Creator</a></li>
+				<li><a href="https://github.com/nocoo/InfoViz" title="Documentation">Documentation</a></li>
+				<li><a class="active" href="./index.html" title="Test">Test</a></li>
+				<li><a href="../history.html" title="History">History</a></li>
+				<li><a href="https://github.com/nocoo/InfoViz/tags" title="Downloads">Downloads</a></li>
+				<li><a href="../license.html" title="The MIT License">The MIT License</a></li>
+			</ul>
+
+			<h1>RadarChart Test</h1>
+			<section>
+				<h2>Test1 <a href="#test1" name="test1">#</a></h2>
+				<div id="i_radarchart1" class="infoviz"></div>
+			</section>
+			<section>
+				<h2>Test2 <a href="#test2" name="test2">#</a></h2>
+				<div id="i_radarchart2" class="infoviz"></div>
+			</section>
+			<section>
+				<h2>Test3 <a href="#test3" name="test3">#</a><a id="btn_refresh" class="button">Refresh</a></h2>
+				<div id="i_radarchart3" class="infoviz"></div>
+			</section>
+			<section>
+				<h2>Test4 <a href="#test4" name="test4">#</a></h2>
+				<div id="i_radarchart4" class="infoviz"></div>
+			</section>
+
+			<div class="clear"></div>
+			<a class="fork" href="https://github.com/nocoo/InfoViz"></a>
+		</section>
+		<footer><p>InfoViz Dev, the MIT License, <a href="http://about.me/nocoo">@zhengli</a>, <a href="https://github.com/nocoo/InfoViz">Github</a></p></footer>
+
+		<script src="../js/raphael.min.js"></script>
+		<script id="seajsnode" src="../js/sea.min.js"></script>
+		<script>
+			(function () {
+				'use strict';
+				/*global seajs*/
+				seajs.use([ '../js/infoviz' ], function (InfoViz) {
+					var i, j, item;
+
+					//Logo is disabled by default.
+					InfoViz.enable_logo();
+
+					// Global option overwrite.
+					InfoViz.global_option({
+						'layout': { 'background-color': '#FFF', 'logo-url': '../images/infoviz_logo_tiny.png' },
+					});
+
+					// Test1.
+					InfoViz.chart(
+						'i_radarchart1',
+						'radarchart',
+						{
+							'value_fields': [ 'F1', 'F2', 'F3', 'F4', 'F5', 'F6' ],
+							'name_field': 'F7',
+							'tooltip_title': 'InfoViz {F2}, {F3}',
+							'tooltip_content': 'Tooltip: {F1}, {F2} | {F3}',
+							'value_maxs': [ 8, 8, 8, 8, 8, 8 ],
+							'value_mins': [ 1, 1, 1, 1, 1, 1 ],
+							'data': [
+								{ 'F1': 7, 'F2': 7, 'F3': 7, 'F4': 7, 'F5': 7, 'F6': 7, 'F7': 'China' },
+								{ 'F1': 6, 'F2': 6, 'F3': 6, 'F4': 6, 'F5': 6, 'F6': 6, 'F7': 'Unite States' },
+								{ 'F1': 5, 'F2': 5, 'F3': 5, 'F4': 5, 'F5': 5, 'F6': 5, 'F7': 'Unite Kingdom' },
+								{ 'F1': 4, 'F2': 4, 'F3': 4, 'F4': 4, 'F5': 4, 'F6': 4, 'F7': 'France' },
+								{ 'F1': 3, 'F2': 3, 'F3': 3, 'F4': 3, 'F5': 3, 'F6': 3, 'F7': 'Japan' },
+								{ 'F1': 2, 'F2': 2, 'F3': 2, 'F4': 2, 'F5': 2, 'F6': 2, 'F7': 'South Korea' },
+								{ 'F1': 1, 'F2': 1, 'F3': 1, 'F4': 1, 'F5': 1, 'F6': 1, 'F7': 'Russia' }
+							]
+						},
+						{
+							'legend': { 'legend-position': 'bottom-left', 'margin-left': 0, 'margin-bottom': 0 }
+						},
+						function(info) { console.log(info); }
+					);
+
+					// Test2.
+					InfoViz.chart(
+						'i_radarchart2',
+						'radarchart',
+						{
+							'value_fields': [ 'Repulsion Power', 'Durability', 'Hitting Sound', 'Shock Absorption', 'Control' ],
+							'tooltip_title': 'Repulsion Power: {Repulsion Power}',
+							'tooltip_content': 'Durability: {Durability}',
+							'value_maxs': [ 6, 6, 6, 6, 6 ],
+							'value_mins': [ 1, 1, 1, 1, 1 ],
+							'data': [
+								{ 'Repulsion Power': 1, 'Durability': 2, 'Hitting Sound': 3, 'Shock Absorption': 4, 'Control': 5 },
+								{ 'Repulsion Power': 2, 'Durability': 3, 'Hitting Sound': 4, 'Shock Absorption': 5, 'Control': 1 },
+								{ 'Repulsion Power': 3, 'Durability': 4, 'Hitting Sound': 5, 'Shock Absorption': 1, 'Control': 2 },
+								{ 'Repulsion Power': 4, 'Durability': 5, 'Hitting Sound': 1, 'Shock Absorption': 2, 'Control': 3 },
+								{ 'Repulsion Power': 5, 'Durability': 1, 'Hitting Sound': 2, 'Shock Absorption': 3, 'Control': 4 }
+							]
+						},
+						{
+							'legend': { 'legend-enabled': false }
+						}
+					);
+
+					// Test3.
+					var random_chart = function (element) {
+						var data = [];
+						var count_fields = Math.floor(Math.random() * 10) + 5;
+						var count_circles = Math.floor(Math.random() * 40) + 10;
+						var v_min = 490;
+						var v_max = 1010;
+						var v_fields = [], v_maxs = [], v_mins = [];
+
+						for (i = 0; i < count_fields; ++i) {
+							v_fields.push('F' + (i + 1));
+							v_maxs.push(v_max);
+							v_mins.push(v_min);
+						}
+
+						for (i = 0; i < count_circles; ++i) {
+							var item = { 'name': 'circle' + i };
+
+							for (j = 0; j < count_fields; ++j) {
+								item['F' + (j + 1)] = Math.floor(Math.random() * 500) + 500;
+							}
+
+							data.push(item);
+						}
+
+						InfoViz.chart(
+							element,
+							'radarchart',
+							{
+								'value_fields': v_fields,
+								'name_field': 'name',
+								'tooltip_title': 'InfoViz {name}',
+								'tooltip_content': 'Tooltip: {F1}, {F2} | {F3}',
+								'value_maxs': v_maxs,
+								'value_mins': v_mins,
+								'data': data
+							},
+							{
+								'legend': { 'legend-enabled': false }
+							}
+						);
+					};
+
+					random_chart('i_radarchart3');
+
+					var button = document.getElementById('btn_refresh');
+					var on_refresh = function() {
+						InfoViz.clear('i_radarchart3', true);
+
+						setTimeout(function() {
+							random_chart('i_radarchart3');
+						}, 500);
+					};
+					button.onclick = on_refresh;
+
+					// Test4.
+					InfoViz.chart(
+						'i_radarchart4',
+						'radarchart',
+						{
+							'value_fields': [ 'F1', 'F2', 'F3', 'F4', 'F5', 'F6' ],
+							'name_field': 'F7',
+							'tooltip_title': 'InfoViz {F2}, {F3}',
+							'tooltip_content': 'Tooltip: {F1}, {F2} | {F3}',
+							'value_maxs': [ 8, 8, 8, 8, 8, 8 ],
+							'value_mins': [ 1, 1, 1, 1, 1, 1 ],
+							'data': [
+								{ 'F1': 7, 'F2': 7, 'F3': 7, 'F4': 7, 'F5': 7, 'F6': 7, 'F7': 'China' },
+								{ 'F1': 6, 'F2': 6, 'F3': 6, 'F4': 6, 'F5': 6, 'F6': 6, 'F7': 'Unite States' },
+								{ 'F1': 5, 'F2': 5, 'F3': 5, 'F4': 5, 'F5': 5, 'F6': 5, 'F7': 'Unite Kingdom' },
+								{ 'F1': 4, 'F2': 4, 'F3': 4, 'F4': 4, 'F5': 4, 'F6': 4, 'F7': 'France' },
+								{ 'F1': 3, 'F2': 3, 'F3': 3, 'F4': 3, 'F5': 3, 'F6': 3, 'F7': 'Japan' },
+								{ 'F1': 2, 'F2': 2, 'F3': 2, 'F4': 2, 'F5': 2, 'F6': 2, 'F7': 'South Korea' },
+								{ 'F1': 1, 'F2': 1, 'F3': 1, 'F4': 1, 'F5': 1, 'F6': 1, 'F7': 'Russia' }
+							]
+						},
+						{
+							'layout': { 'logo-url': '../images/infoviz_logo_tiny_white.png' },
+							'grid': { 'background-color': '#333' },
+							'tooltip': { 'border-color': '#DDD', 'background-color': '#333' },
+							'legend': { 'legend-position': 'bottom-left', 'margin-bottom': 0, 'margin-right': 0, 'border-color': '#DDD', 'background-color': '#333' },
+							'radarchart': { 'outer-border-color': '#FFF', 'inner-border-color': '#DDD', 'inner-background-color': '#333', 'label-color': '#DDD' },
+							'color': [
+								{ 'color': '#FFF', 'dark-alpha': 0.20, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.30, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.40, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.50, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.60, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.70, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.80, 'light-alpha': 0.45 },
+								{ 'color': '#FFF', 'dark-alpha': 0.85, 'light-alpha': 0.45 }
+							]
+						}
+					);
+				});
+			}());
+		</script>
+	</body>
+</html>
